@@ -33,11 +33,10 @@ export async function updateProject(app: FastifyInstance) {
           },
         },
       },
-      async (request, reply) => {
-        const { slug, projectId } = request.params
-        const userId = await request.getCurrentUserId()
-        const { organization, membership } =
-          await request.getUserMembership(slug)
+      async (req, res) => {
+        const { slug, projectId } = req.params
+        const userId = await req.getCurrentUserId()
+        const { organization, membership } = await req.getUserMembership(slug)
 
         const project = await prisma.project.findUnique({
           where: {
@@ -59,7 +58,7 @@ export async function updateProject(app: FastifyInstance) {
           )
         }
 
-        const { name, description } = request.body
+        const { name, description } = req.body
 
         await prisma.project.update({
           where: {
@@ -71,7 +70,7 @@ export async function updateProject(app: FastifyInstance) {
           },
         })
 
-        return reply.status(204).send()
+        return res.status(204).send()
       },
     )
 }
