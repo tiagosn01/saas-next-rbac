@@ -38,7 +38,7 @@
     "tsx": "^4.7.2"
   },
   "prisma": {
-    "seed": "tsx prisma/seed.ts"
+    "seed": "dotenv -e ../../.env -- tsx prisma/seed.ts"
   },
   "prettier": "@saas/prettier",
   "eslintConfig": {
